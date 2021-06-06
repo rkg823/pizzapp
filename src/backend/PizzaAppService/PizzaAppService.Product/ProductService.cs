@@ -58,32 +58,32 @@ namespace PizzaAppService.Product
           .Where(size => size != null)
           .ToList(),
         Toppings = (product.details.availableToppings as IList<dynamic>)
-         .Where(topping => toppings.ContainsKey(topping.id as string))
-         .Select(topping => ToChildProduct(topping, toppings) as Models.Product)
+         .Where(toppingId => toppings.ContainsKey(toppingId as string))
+         .Select(toppingId => ToChildProduct(toppingId, toppings) as Models.Product)
          .Where(topping => topping != null)
          .ToList(),
         Sauces = (product.details.availableSauces as IList<dynamic>)
-         .Where(sauce => toppings.ContainsKey(sauce.id as string))
-         .Select(sauce => ToChildProduct(sauce, sauces) as Models.Product)
+         .Where(sauceId => sauces.ContainsKey(sauceId as string))
+         .Select(sauceId => ToChildProduct(sauceId, sauces) as Models.Product)
          .Where(sauce => sauce != null)
          .ToList()
       }).ToList();
       return dto;
     }
 
-    private Models.Product ToChildProduct(dynamic item, Dictionary<string, dynamic> source)
+    private Models.Product ToChildProduct(string id, Dictionary<string, dynamic> source)
     {
-      var details = source[item.id as string];
+      var details = source[id];
 
-      if (!double.TryParse(details.price.amount, out double amount))
+      if (!double.TryParse(details.price.amount.ToString(), out double amount))
       {
-        logger.LogWarning("Invalid amount.", new[] { item, details });
+        logger.LogWarning("Invalid amount.", new[] { id, details });
         return null;
       }
 
       if (string.IsNullOrWhiteSpace(details.title))
       {
-        logger.LogWarning("Invalid title.", new[] { item, details });
+        logger.LogWarning("Invalid title.", new[] { id, details });
         return null;
       }
 
@@ -113,7 +113,7 @@ namespace PizzaAppService.Product
     private Models.Size ToSize(dynamic item, Dictionary<string, dynamic> source)
     {
       var sizeDetails = source[item.id as string];
-      if (!double.TryParse(item.ammount, out double amount))
+      if (!double.TryParse(item.price.amount.ToString(), out double amount))
       {
         logger.LogWarning("Invalid amount.", new[] { item, sizeDetails });
         return null;
