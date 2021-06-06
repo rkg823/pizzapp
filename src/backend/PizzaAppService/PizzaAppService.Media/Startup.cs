@@ -8,24 +8,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using PizzaAppService.Common;
-using PizzaAppService.Product;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PizzaAppService.Api
+namespace PizzaAppService.Media
 {
   public class Startup
   {
-    private const string ALLOWED_ORIGINS = "AllowOrigins";
-    private const string USER_AGENT = "PizzaApp";
-    private const string ACCEPT = "application/vnd.github.v3+json";
-    private const string BASE_API_ADDRESS_KEY = "GithubBaseAddress";
-    private const string CLIENT_APP_ORIGIN_KEY = "ClientAppOrigin";
-
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
@@ -36,27 +28,7 @@ namespace PizzaAppService.Api
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddCors(c =>
-      {
-        c.AddPolicy(ALLOWED_ORIGINS, options => {
-
-          options
-          .WithOrigins(Configuration[CLIENT_APP_ORIGIN_KEY])
-          .AllowAnyHeader()
-          .AllowAnyMethod();
-        });
-        
-      });
-
       services.AddControllers();
-      services.AddHttpClient<IGithubService, GithubService>(c =>
-      {
-        
-        c.BaseAddress = new Uri(Configuration[BASE_API_ADDRESS_KEY]);
-        c.DefaultRequestHeaders.Add("Accept", ACCEPT);
-        c.DefaultRequestHeaders.Add("User-Agent", USER_AGENT);
-      });
-      services.AddSingleton<IProductService, ProductService>();   
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,8 +54,6 @@ namespace PizzaAppService.Api
       });
 
       app.UseRouting();
-
-      app.UseCors(ALLOWED_ORIGINS);
 
       app.UseAuthorization();
 

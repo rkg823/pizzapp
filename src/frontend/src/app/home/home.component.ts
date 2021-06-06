@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductApiService } from '../api-service/product-api.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  loading;
+  products$;
+  constructor(private productApi: ProductApiService) { }
 
   ngOnInit(): void {
+    this.products$ = this.productApi.get();
   }
 
 }

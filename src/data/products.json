@@ -27,11 +27,7 @@
             }
           }
         ],
-        "imagesUrls": [
-          "",
-          "",
-          ""
-        ],
+        "imagesUrls": ["2.jpg"],
         "availableSauces": [ "504e1b3d-fec3-43ba-b5c1-759f006f797d", "b95a49a7-7b9d-4837-915d-6b83790f5487"],
         "availableToppings": [ "da1c6059-3ab6-48d0-a1b5-2ed8bef00d84", "24762fa4-9363-4b4c-880d-513f7b2c1f43"]
       }

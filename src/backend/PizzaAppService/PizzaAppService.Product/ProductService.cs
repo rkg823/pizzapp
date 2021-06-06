@@ -47,7 +47,7 @@ namespace PizzaAppService.Product
         .ToDictionary(topping => topping.id as string, topping => topping);
      
 
-      var dto = products.Select(product => new Models.Product
+      return products.Select(product => new Models.Product
       {
         Id = product.id,
         Title = product.title,
@@ -68,7 +68,6 @@ namespace PizzaAppService.Product
          .Where(sauce => sauce != null)
          .ToList()
       }).ToList();
-      return dto;
     }
 
     private Models.Product ToChildProduct(string id, Dictionary<string, dynamic> source)
