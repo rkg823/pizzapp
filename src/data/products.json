@@ -1,51 +1,54 @@
-[
-  {
-    "id": "2bc2adcd-b1cd-40b7-958f-3529a6ca21dd",
-    "title": "Big Western Pizza",
-    "description": "Mozzarella Cheese | Chicken Salami | BBQ Chicken | Tomato | Onion | Handtossed Crust (21% larger than other medium pizzas)",
-    "details": {
-      "availableSizes": [
-        {
-          "name": "8 Inch",
-          "code": "small",
-          "id": "sm"
-        },
-        {
-          "name": "12 Inch",
-          "code": "medium ",
-          "id": "md"
-        },
-        {
-          "name": "14 Inch",
-          "code": "large",
-          "id": "lg"
-        }
-      ],
-      "imagesUrls": [
-        "",
-        "",
-        ""
-      ],
-      "prices": [
-        {
-          "size": "sm",
-          "ammount": 300
-        },
-        {
-          "size": "sm",
-          "ammount": 500
-        },
-        {
-          "size": "sm",
-          "ammount": 700
-        }
-      ],
-      "availableSauces": [ "", "", "" ],
-      "availableToppings": [
-        "",
-        "",
-        ""
-      ]
+{
+  "name":"products",
+  "data":[
+    {
+      "id": "2bc2adcd-b1cd-40b7-958f-3529a6ca21dd",
+      "title": "Big Western Pizza",
+      "description": "Mozzarella Cheese | Chicken Salami | BBQ Chicken | Tomato | Onion | Handtossed Crust (21% larger than other medium pizzas)",
+      "details": {
+        "availableSizes": [
+          {
+            "name": "8 Inch",
+            "code": "small",
+            "id": "sm"
+          },
+          {
+            "name": "12 Inch",
+            "code": "medium ",
+            "id": "md"
+          },
+          {
+            "name": "14 Inch",
+            "code": "large",
+            "id": "lg"
+          }
+        ],
+        "imagesUrls": [
+          "",
+          "",
+          ""
+        ],
+        "prices": [
+          {
+            "size": "sm",
+            "ammount": 300
+          },
+          {
+            "size": "sm",
+            "ammount": 500
+          },
+          {
+            "size": "sm",
+            "ammount": 700
+          }
+        ],
+        "availableSauces": [ "", "", "" ],
+        "availableToppings": [
+          "",
+          "",
+          ""
+        ]
+      }
     }
-  }
-]
+  ]
+}

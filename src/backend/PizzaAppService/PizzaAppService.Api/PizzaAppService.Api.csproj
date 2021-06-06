@@ -4,5 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PizzaAppService.Common\PizzaAppService.Common.csproj" />
+    <ProjectReference Include="..\PizzaAppService.Product\PizzaAppService.Product.csproj" />
+  </ItemGroup>
+
 
 </Project>

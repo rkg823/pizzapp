@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PizzaAppService.Common;
+using PizzaAppService.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,10 @@ namespace PizzaAppService.Api
 {
   public class Startup
   {
+    private const string USER_AGENT = "PizzaApp";
+    private const string ACCEPT = "application/vnd.github.v3+json";
+    private const string BASE_API_ADDRESS_KEY = "GithubBaseAddress";
+
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
@@ -26,6 +32,15 @@ namespace PizzaAppService.Api
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
+      services.AddHttpClient<IGithubService, GithubService>(c =>
+      {
+        
+        c.BaseAddress = new Uri(Configuration[BASE_API_ADDRESS_KEY]);
+        c.DefaultRequestHeaders.Add("Accept", ACCEPT);
+        c.DefaultRequestHeaders.Add("User-Agent", USER_AGENT);
+      });
+      services.AddSingleton<IProductService, ProductService>();
+      // services.AddSingleton<IGithubService, GithubService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

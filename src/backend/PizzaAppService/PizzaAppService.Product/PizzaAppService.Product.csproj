@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.IO.Abstractions" Version="13.2.33" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PizzaAppService.Common\PizzaAppService.Common.csproj" />
     <ProjectReference Include="..\PizzaAppService.Models\PizzaAppService.Models.csproj" />
   </ItemGroup>
 
