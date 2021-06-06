@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apis:{
-    appApiBaseUrl: 'https://localhost:44383'
+    appApiBaseUrl: 'https://localhost:44383/api',
+    mediaApiBaseUrl: 'https://localhost:44383/media'
   }
 };
 

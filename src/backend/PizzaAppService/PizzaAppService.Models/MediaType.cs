@@ -6,8 +6,8 @@ namespace PizzaAppService.Models
 {
   public enum MediaType
   {
-    Audio,
-    Video,
-    Image
+    Audio = 1,
+    Video = 2,
+    Image = 3
   }
 }

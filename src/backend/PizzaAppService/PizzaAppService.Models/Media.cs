@@ -10,6 +10,6 @@ namespace PizzaAppService.Models
     public string Description { get; set; }
     public Uri Url { get; set; }
     public MediaType Type { get; set; }
-
+    public bool IsPrimary { get; set; }
   }
 }
