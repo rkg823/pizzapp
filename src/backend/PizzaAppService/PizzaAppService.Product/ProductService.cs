@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PizzaAppService.Common;
 using System;
@@ -17,12 +18,14 @@ namespace PizzaAppService.Product
     private const string SAUCES_FILE_URL = "data/sauces.json";
     private const string TOPPINGS_FILE_URL = "data/toppings.json";
     private const string NOT_APPLICABLE = "N/A";
+    private readonly ILogger<ProductService> logger;
 
     private readonly IGithubService gitHubService;
 
-    public ProductService(IGithubService gitHubService)
+    public ProductService(IGithubService gitHubService, ILogger<ProductService> logger)
     {
       this.gitHubService = gitHubService;
+      this.logger = logger;
     }
     public async Task<IList<Models.Product>> Get()
     {
@@ -36,9 +39,12 @@ namespace PizzaAppService.Product
       });
 
       var products = results[0];
-      var sizes = results[1].ToDictionary(size => size.id as string, size => size);
-      var sauces = results[2].ToDictionary(sauce => sauce.id as string, sauce => sauce);
-      var toppings = results[3].ToDictionary(topping => topping.id as string, topping => topping);
+      var sizes = results[1]
+        .ToDictionary(size => size.id as string, size => size);
+      var sauces = results[2]
+        .ToDictionary(sauce => sauce.id as string, sauce => sauce);
+      var toppings = results[3]
+        .ToDictionary(topping => topping.id as string, topping => topping);
      
 
       var dto = products.Select(product => new Models.Product
@@ -47,14 +53,20 @@ namespace PizzaAppService.Product
         Title = product.title,
         Description = product.description,
         Sizes = (product.details.availableSizes as IList<dynamic>)
-        .Where(s => sizes.ContainsKey(s.id as string))
-          .Select(s => ToSize(s, sizes) as Models.Size).ToList(),
+        .Where(size => sizes.ContainsKey(size.id as string))
+          .Select(size => ToSize(size, sizes) as Models.Size)
+          .Where(size => size != null)
+          .ToList(),
         Toppings = (product.details.availableToppings as IList<dynamic>)
-         .Where(t => toppings.ContainsKey(t.id as string))
-         .Select(t => ToChildProduct(t, toppings) as Models.Product).ToList(),
+         .Where(topping => toppings.ContainsKey(topping.id as string))
+         .Select(topping => ToChildProduct(topping, toppings) as Models.Product)
+         .Where(topping => topping != null)
+         .ToList(),
         Sauces = (product.details.availableSauces as IList<dynamic>)
-         .Where(s => toppings.ContainsKey(s.id as string))
-         .Select(s => ToChildProduct(s, sauces) as Models.Product).ToList()
+         .Where(sauce => toppings.ContainsKey(sauce.id as string))
+         .Select(sauce => ToChildProduct(sauce, sauces) as Models.Product)
+         .Where(sauce => sauce != null)
+         .ToList()
       }).ToList();
       return dto;
     }
@@ -62,6 +74,19 @@ namespace PizzaAppService.Product
     private Models.Product ToChildProduct(dynamic item, Dictionary<string, dynamic> source)
     {
       var details = source[item.id as string];
+
+      if (!double.TryParse(details.price.amount, out double amount))
+      {
+        logger.LogWarning("Invalid amount.", new[] { item, details });
+        return null;
+      }
+
+      if (string.IsNullOrWhiteSpace(details.title))
+      {
+        logger.LogWarning("Invalid title.", new[] { item, details });
+        return null;
+      }
+
       var product = new Models.Product
       {
         Id = details.id,
@@ -76,7 +101,7 @@ namespace PizzaAppService.Product
                  Title = NOT_APPLICABLE,
                  Price = new Models.Price
                  {
-                   Amount = item.price.amount
+                   Amount = amount
                  }
 
                }
@@ -88,6 +113,18 @@ namespace PizzaAppService.Product
     private Models.Size ToSize(dynamic item, Dictionary<string, dynamic> source)
     {
       var sizeDetails = source[item.id as string];
+      if (!double.TryParse(item.ammount, out double amount))
+      {
+        logger.LogWarning("Invalid amount.", new[] { item, sizeDetails });
+        return null;
+      }
+
+      if (string.IsNullOrWhiteSpace(sizeDetails.title))
+      {
+        logger.LogWarning("Invalid title.", new[] { item, sizeDetails });
+        return null;
+      }
+
       var size = new Models.Size
       {
         Id = sizeDetails.id,
@@ -96,7 +133,7 @@ namespace PizzaAppService.Product
         Price = new Models.Price
         {
           Id = Guid.NewGuid().ToString(),
-          Amount = item.ammount
+          Amount = amount
         }
       };
       return size;

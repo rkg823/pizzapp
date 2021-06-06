@@ -3,19 +3,19 @@
     "data": [
         {
             "title": "8 Inch",
-            "id": "sm",
+            "id": "343f767b-056c-4687-9111-b9d8906b0b2f",
             "descrtiption": "small",
             "images": []
         },
         {
             "title": "12 Inch",
-            "id": "md",
+            "id": "343f767b-056c-4687-9111-b9d8906b0b2f",
             "descrtiption": "medium",
             "images": []
         },
         {
             "title": "14 Inch",
-            "id": "lg",
+            "id": "1d705b9d-a54b-47ea-beea-86c6c3d8bad1",
             "descrtiption": "large",
             "images": []
         }

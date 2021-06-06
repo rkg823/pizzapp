@@ -8,19 +8,23 @@
       "details": {
         "availableSizes": [
           {
-            "name": "8 Inch",
-            "code": "small",
-            "id": "sm"
+
+            "id": "343f767b-056c-4687-9111-b9d8906b0b2f",
+            "price": {
+              "amount": 300
+            }
           },
           {
-            "name": "12 Inch",
-            "code": "medium ",
-            "id": "md"
+            "id": "343f767b-056c-4687-9111-b9d8906b0b2f",
+            "price": {
+              "amount": 500
+            }
           },
           {
-            "name": "14 Inch",
-            "code": "large",
-            "id": "lg"
+            "id": "1d705b9d-a54b-47ea-beea-86c6c3d8bad1",
+            "price": {
+              "amount": 700
+            }
           }
         ],
         "imagesUrls": [
@@ -28,26 +32,8 @@
           "",
           ""
         ],
-        "prices": [
-          {
-            "size": "sm",
-            "amount": 300
-          },
-          {
-            "size": "sm",
-            "amount": 500
-          },
-          {
-            "size": "sm",
-            "amount": 700
-          }
-        ],
-        "availableSauces": [ "", "", "" ],
-        "availableToppings": [
-          "",
-          "",
-          ""
-        ]
+        "availableSauces": [ "504e1b3d-fec3-43ba-b5c1-759f006f797d", "b95a49a7-7b9d-4837-915d-6b83790f5487"],
+        "availableToppings": [ "da1c6059-3ab6-48d0-a1b5-2ed8bef00d84", "24762fa4-9363-4b4c-880d-513f7b2c1f43"]
       }
     }
   ]
