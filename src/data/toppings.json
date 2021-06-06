@@ -1,0 +1,32 @@
+{
+    "name":"sauces",
+    "data": [
+        {
+            "id": "Pepperoni",
+            "title": "Pepperoni",
+            "description": "",
+            "images": [],
+            "price": {
+                "amount": 40
+            }
+        },
+        {
+            "id": "Mushrooms",
+            "title": "Mushrooms",
+            "description": "",
+            "images": [],
+            "price": {
+                "amount": 40
+            }
+        },
+        {
+            "id": "Onions",
+            "title": "Onions",
+            "description": "",
+            "images": [],
+            "price": {
+                "amount": 40
+            }
+        }
+    ]
+}

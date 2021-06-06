@@ -1,0 +1,23 @@
+{
+    "name": "pizza sizes",
+    "data": [
+        {
+            "title": "8 Inch",
+            "id": "sm",
+            "descrtiption": "small",
+            "images": []
+        },
+        {
+            "title": "12 Inch",
+            "id": "md",
+            "descrtiption": "medium",
+            "images": []
+        },
+        {
+            "title": "14 Inch",
+            "id": "lg",
+            "descrtiption": "large",
+            "images": []
+        }
+    ]
+}

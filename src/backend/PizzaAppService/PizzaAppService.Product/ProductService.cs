@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO.Abstractions;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PizzaAppService.Product
@@ -12,6 +13,10 @@ namespace PizzaAppService.Product
   public class ProductService : IProductService
   {
     private const string PRODUCTS_FILE_URL = "data/products.json";
+    private const string SIZES_FILE_URL = "data/sizes.json";
+    private const string SAUCES_FILE_URL = "data/sauces.json";
+    private const string TOPPINGS_FILE_URL = "data/toppings.json";
+    private const string NOT_APPLICABLE = "N/A";
 
     private readonly IGithubService gitHubService;
 
@@ -21,16 +26,87 @@ namespace PizzaAppService.Product
     }
     public async Task<IList<Models.Product>> Get()
     {
-      try
-      {
-        var json = await gitHubService.GetFile(PRODUCTS_FILE_URL);
-        dynamic data = JsonConvert.DeserializeObject<ExpandoObject>(json, new ExpandoObjectConverter());
-      }catch(Exception ex)
-      {
 
-      }
-      return new List<Models.Product>();
+      var results = await Task.WhenAll(new[]
+      {
+        GetFileData(PRODUCTS_FILE_URL),
+        GetFileData(SIZES_FILE_URL),
+        GetFileData(SAUCES_FILE_URL), 
+        GetFileData(TOPPINGS_FILE_URL)
+      });
+
+      var products = results[0];
+      var sizes = results[1].ToDictionary(size => size.id as string, size => size);
+      var sauces = results[2].ToDictionary(sauce => sauce.id as string, sauce => sauce);
+      var toppings = results[3].ToDictionary(topping => topping.id as string, topping => topping);
+     
+
+      var dto = products.Select(product => new Models.Product
+      {
+        Id = product.id,
+        Title = product.title,
+        Description = product.description,
+        Sizes = (product.details.availableSizes as IList<dynamic>)
+        .Where(s => sizes.ContainsKey(s.id as string))
+          .Select(s => ToSize(s, sizes) as Models.Size).ToList(),
+        Toppings = (product.details.availableToppings as IList<dynamic>)
+         .Where(t => toppings.ContainsKey(t.id as string))
+         .Select(t => ToChildProduct(t, toppings) as Models.Product).ToList(),
+        Sauces = (product.details.availableSauces as IList<dynamic>)
+         .Where(s => toppings.ContainsKey(s.id as string))
+         .Select(s => ToChildProduct(s, sauces) as Models.Product).ToList()
+      }).ToList();
+      return dto;
     }
 
+    private Models.Product ToChildProduct(dynamic item, Dictionary<string, dynamic> source)
+    {
+      var details = source[item.id as string];
+      var product = new Models.Product
+      {
+        Id = details.id,
+        Title = details.title,
+        Description = details.description,
+        Sizes = new List<Models.Size>
+             {
+               new Models.Size
+               {
+                 Id = NOT_APPLICABLE,
+                 Description = NOT_APPLICABLE,
+                 Title = NOT_APPLICABLE,
+                 Price = new Models.Price
+                 {
+                   Amount = item.price.amount
+                 }
+
+               }
+             }
+      };
+      return product;
+    }
+
+    private Models.Size ToSize(dynamic item, Dictionary<string, dynamic> source)
+    {
+      var sizeDetails = source[item.id as string];
+      var size = new Models.Size
+      {
+        Id = sizeDetails.id,
+        Title = sizeDetails.title,
+        Description = sizeDetails.description,
+        Price = new Models.Price
+        {
+          Id = Guid.NewGuid().ToString(),
+          Amount = item.ammount
+        }
+      };
+      return size;
+    }
+
+    private async Task<IList<dynamic>> GetFileData(string url)
+    {
+      var file = await gitHubService.GetFile(url);
+      dynamic json = JsonConvert.DeserializeObject<ExpandoObject>(file, new ExpandoObjectConverter());
+      return json.data as IList<dynamic>;
+    }
   }
 }

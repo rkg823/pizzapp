@@ -7,6 +7,6 @@ namespace PizzaAppService.Models
   public class Price
   {
     public string Id { get; set; }
-    public double Ammount { get; set; }
+    public double Amount { get; set; }
   }
 }

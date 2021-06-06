@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PizzaAppService.Models
 {
@@ -7,6 +8,8 @@ namespace PizzaAppService.Models
     public int Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
-    public Size Size { get; set; }
+    public IList<Size> Sizes { get; set; }
+    public IList<Product> Toppings { get; set; }
+    public IList<Product> Sauces { get; set; }
   }
 }

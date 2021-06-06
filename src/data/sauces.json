@@ -1,0 +1,32 @@
+{
+    "name":"sauces",
+    "data": [
+        {
+            "id": "marinara",
+            "title": "marinara",
+            "description": "",
+            "images": [],
+            "price": {
+                "amount": 60
+            }
+        },
+        {
+            "id": "ranch",
+            "title": "ranch",
+            "description": "",
+            "images": [],
+            "price": {
+                "amount": 60
+            }
+        },
+        {
+            "id": "spicy_red_sauces",
+            "title": "spicy red sauces",
+            "description": "",
+            "images": [],
+            "price": {
+                "amount": 60
+            }
+        }
+    ]
+}

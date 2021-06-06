@@ -31,15 +31,15 @@
         "prices": [
           {
             "size": "sm",
-            "ammount": 300
+            "amount": 300
           },
           {
             "size": "sm",
-            "ammount": 500
+            "amount": 500
           },
           {
             "size": "sm",
-            "ammount": 700
+            "amount": 700
           }
         ],
         "availableSauces": [ "", "", "" ],
