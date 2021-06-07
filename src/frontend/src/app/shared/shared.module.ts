@@ -1,24 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductComponent } from './product/product.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavComponent } from './nav/nav.component';
+import { ProductCardComponent } from './product-card/product-card.component';
+import { ProductCustomizationComponent } from './product-customization/product-customization.component';
 
 
 
 @NgModule({
   declarations: [
-    ProductComponent, 
+    ProductCardComponent, 
     HeaderComponent, 
     FooterComponent, 
-    NavComponent
+    NavComponent, ProductCustomizationComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    ProductComponent, 
+    ProductCardComponent, 
     HeaderComponent, 
     FooterComponent, 
     NavComponent

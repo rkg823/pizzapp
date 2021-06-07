@@ -8,5 +8,5 @@ export interface Product {
     sizes: Size[];
     toppings: Product[];
     sauces: Product[];
-    medies: Media[];
+    medias: Media[];
 }

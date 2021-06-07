@@ -23,6 +23,6 @@ export class ProductApiService {
   }
 
   get(){
-    return this.http.get<Product>(`${this.productApiUrls.get}`, this.cacheRequestOption);
+    return this.http.get<Product[]>(`${this.productApiUrls.get}`, this.cacheRequestOption);
   }
 }
