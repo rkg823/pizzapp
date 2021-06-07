@@ -77,7 +77,7 @@ namespace PizzaAppService.Product
          .Where(sauce => sauce != null)
          .ToList(),
         Cheeses = (product.details.availableCheeses as IList<dynamic>)
-         .Where(cheeseId => sauces.ContainsKey(cheeseId as string))
+         .Where(cheeseId => cheeses.ContainsKey(cheeseId as string))
          .Select(cheeseId => ToChildProduct(cheeseId, cheeses) as Models.Product)
          .Where(cheeses => cheeses != null)
          .ToList()
