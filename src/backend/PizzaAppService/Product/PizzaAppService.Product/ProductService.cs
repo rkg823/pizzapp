@@ -73,6 +73,31 @@ namespace PizzaAppService.Product
       return products.FirstOrDefault(product => product.Id == id);
     }
 
+    public async Task<double> GetPriceById(string id, string productId)
+    {
+      var product = await Get(productId);
+
+      var priceList = new Dictionary<string, double>();
+      foreach (var size in product.Sizes)
+      {
+        priceList.Add(size.Id, size.Price);
+      }
+      foreach (var sauce in product.Sauces)
+      {
+        priceList.Add(sauce.Id, sauce.Sizes.First().Price);
+      }
+      foreach (var topping in product.Toppings)
+      {
+        priceList.Add(topping.Id, topping.Sizes.First().Price);
+      }
+      foreach (var cheese in product.Cheeses)
+      {
+        priceList.Add(cheese.Id, cheese.Sizes.First().Price);
+      }
+
+      return priceList[id];
+    }
+
     public async Task<IList<Models.Product>> GetToppings()
     {
       var toppings = await GetFileData(TOPPINGS_FILE_URL);

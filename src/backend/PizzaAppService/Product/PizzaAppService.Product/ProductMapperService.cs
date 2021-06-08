@@ -58,11 +58,7 @@ namespace PizzaAppService.Product
                  Id = NOT_APPLICABLE,
                  Description = NOT_APPLICABLE,
                  Title = NOT_APPLICABLE,
-                 Price = new Models.Price
-                 {
-                   Amount = amount
-                 }
-
+                 Price = amount
                }
              }
       };

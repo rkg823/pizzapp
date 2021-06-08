@@ -1,18 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PizzaAppService.Product;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PizzaAppService.Api.Controllers
 {
   [ApiController]
-  [Route("api/products")]
+  [Route("api/product")]
   public class ProductController : ControllerBase
   {
-
     private readonly ILogger<ProductController> logger;
 
     private readonly IProductService productService;

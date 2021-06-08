@@ -6,6 +6,6 @@ namespace PizzaAppService.Models
 {
   public class Size: Base
   {
-    public Price Price { get; set; }
+    public double Price { get; set; }
   }
 }

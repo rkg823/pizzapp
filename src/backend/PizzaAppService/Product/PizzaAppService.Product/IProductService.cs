@@ -16,5 +16,6 @@ namespace PizzaAppService.Product
     Task<IList<Size>> GetSizes();
     Task<Models.Product> GetToppingById(string id);
     Task<IList<Models.Product>> GetToppings();
+    Task<double> GetPriceById(string id, string productId);
   }
 }

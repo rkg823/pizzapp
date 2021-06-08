@@ -1,5 +1,5 @@
 import { Base } from "./base";
 
-export interface Size extends Base{
+export interface OrderItem extends Base {
     price: number;
 }

@@ -14,15 +14,11 @@ export class ProductApiService {
     })
   };
 
-  private productApiUrls = {
-    get: `${environment.apis.appApiBaseUrl}/products`,
-  }
+  private productApiUrl = `${environment.apis.appApiBaseUrl}/product`;
 
-  constructor(private http: HttpClient) { 
-
-  }
+  constructor(private http: HttpClient) {}
 
   get(){
-    return this.http.get<Product[]>(`${this.productApiUrls.get}`, this.cacheRequestOption);
+    return this.http.get<Product[]>(`${this.productApiUrl}`, this.cacheRequestOption);
   }
 }

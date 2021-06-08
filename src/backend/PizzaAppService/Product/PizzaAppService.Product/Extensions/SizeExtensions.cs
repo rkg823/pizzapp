@@ -15,11 +15,7 @@ namespace PizzaAppService.Product.Extensions
                throw new InvalidCastException($"Invalid price for size id: {item.id}");
              }
              var size = source[item.id as string];
-             size.Price = new Models.Price
-             {
-               Id = Guid.NewGuid().ToString(),
-               Amount = amount
-             };
+             size.Price = amount;
              return size;
            })
            .ToList();

@@ -9,10 +9,12 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PizzaAppService.Common;
+using PizzaAppService.Order;
 using PizzaAppService.Product;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,6 +27,7 @@ namespace PizzaAppService.Api
     private const string ACCEPT = "application/vnd.github.v3+json";
     private const string BASE_API_ADDRESS_KEY = "GithubBaseAddress";
     private const string CLIENT_APP_ORIGIN_KEY = "ClientAppOrigin";
+    private const string MEDIA_DIRECTORY = "AppData\\Medias";
 
     public Startup(IConfiguration configuration)
     {
@@ -57,6 +60,8 @@ namespace PizzaAppService.Api
       });
       services.AddSingleton<IProductService, ProductService>();
       services.AddSingleton<IProductMapperService, ProductMapperService>();
+      services.AddSingleton<IOrderService, OrderService>();
+      services.AddSingleton<IFileSystem>((_) => new FileSystem());
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,7 +77,7 @@ namespace PizzaAppService.Api
       app.UseStaticFiles(new StaticFileOptions
       {
         FileProvider = new PhysicalFileProvider(
-            Path.Combine(env.ContentRootPath, "Contents")),
+            Path.Combine(env.ContentRootPath, MEDIA_DIRECTORY)),
         RequestPath = "/media",
         OnPrepareResponse = ctx =>
         {

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.IO.Abstractions" Version="13.2.33" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Common\PizzaAppService.Common\PizzaAppService.Common.csproj" />
     <ProjectReference Include="..\Order\PizzaAppService.Order\PizzaAppService.Order.csproj" />
     <ProjectReference Include="..\PizzaAppService.Models\PizzaAppService.Models.csproj" />
@@ -12,16 +16,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Contents\1.jpg">
+    <Content Update="AppData\Orders\1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AppData\Medias\1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Contents\2.jpg">
+    <None Update="AppData\Medias\2.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Contents\3.jpg">
+    <None Update="AppData\Medias\3.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Contents\4.jpg">
+    <None Update="AppData\Medias\4.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
