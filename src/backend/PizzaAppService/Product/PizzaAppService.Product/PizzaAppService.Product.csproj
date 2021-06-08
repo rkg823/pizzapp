@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PizzaAppService.Common\PizzaAppService.Common.csproj" />
-    <ProjectReference Include="..\PizzaAppService.Models\PizzaAppService.Models.csproj" />
+    <ProjectReference Include="..\..\Common\PizzaAppService.Common\PizzaAppService.Common.csproj" />
+    <ProjectReference Include="..\..\PizzaAppService.Models\PizzaAppService.Models.csproj" />
   </ItemGroup>
 
 </Project>

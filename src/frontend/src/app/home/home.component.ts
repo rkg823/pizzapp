@@ -41,8 +41,43 @@ export class HomeComponent implements OnInit {
       image:  `${environment.apis.mediaApiBaseUrl}/${product.medias.find(media => media.isPrimary)?.url}`,
       title: product.title,
       desccription: product.description,
-      product: product 
-    } 
+      cheeses: product.cheeses.map((cheese, index)=> ({
+        id: cheese.id,
+        title: cheese.title,
+        price: cheese.sizes[0].price.amount,
+        descripion: cheese.description,
+        selected: index == 0? true: false
+      })),
+      sauces: product.sauces.map((sauce)=> ({
+        id: sauce.id,
+        title: sauce.title,
+        price: sauce.sizes[0].price.amount,
+        descripion: sauce.description,
+        selected: false
+      })),
+      sizes: product.sizes.map((size, index)=> ({
+        id: size.id,
+        title: size.title,
+        price: size.price.amount,
+        descripion: size.description,
+        selected: index == 0? true: false
+      })),
+      toppings: product.toppings.map((topping)=> ({
+        id: topping.id,
+        title: topping.title,
+        price: topping.sizes[0].price.amount,
+        descripion: topping.description,
+        selected: false
+      })),
+      product: product
+    };
+    component.selection = {
+      cheese: component.productCustomization.cheeses[0],
+      sauces: [],
+      size: component.productCustomization.sizes[0],
+      toppings: [],
+      total: 0
+    }
   }
 
 }

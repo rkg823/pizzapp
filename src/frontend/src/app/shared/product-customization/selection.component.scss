@@ -1,0 +1,4 @@
+.skip-order::before {
+    content: none !important;
+    counter-increment: none !important;
+}

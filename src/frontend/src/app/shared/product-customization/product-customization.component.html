@@ -1,18 +1,66 @@
 <div class="modal-header">
-  <h4 class="modal-title">Hi there!</h4>
+  <h4 class="modal-title">Customize Your Pizza</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-  <div class="row">
-    <div class="col-md-6">
-        <ul class="list-group">
-            <li class="list-group-item" ngFor="const topping of productCustomization.toppings">
-              <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-              {{topping.title}}
-            </li>
-          </ul>
+ <div class="row">
+  <div class="col">
+    <h6>Select Size</h6>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" *ngFor="let size of productCustomization.sizes">
+        <div  (click)="selectOne(size, productCustomization.sizes, 'size')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-primary': size.selected }">
+          <div class="card-body">
+            <h5 class="card-title text-capitalize">{{size.price}}</h5>
+            <p class="card-text text-capitalize">{{size.title}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h6>Select Sauces</h6>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" *ngFor="let sauce of productCustomization.sauces">
+        <div (click)="selectMany(sauce, 'sauces')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-primary': sauce.selected }">
+          <div class="card-body">
+            <h5 class="card-title text-capitalize">{{sauce.price}}</h5>
+            <p class="card-text text-capitalize">{{sauce.title}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h6>Select Toppings</h6>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" *ngFor="let topping of productCustomization.toppings">
+        <div (click)="selectMany(topping, 'toppings')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-primary': topping.selected }">
+          <div class="card-body">
+            <h5 class="card-title text-capitalize">{{topping.price}}</h5>
+            <p class="card-text text-capitalize">{{topping.title}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h6>Select Cheeses</h6>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" *ngFor="let cheese of productCustomization.cheeses">
+        <div (click)="selectOne(cheese,productCustomization.cheeses, 'cheese')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-primary': cheese.selected }">
+          <div class="card-body">
+            <h5 class="card-title text-capitalize">{{cheese.price}}</h5>
+            <p class="card-text text-capitalize">{{cheese.title}}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="col">
+    <app-selection [selection]="selection"></app-selection>
+  </div>
+ </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="order()">Order</button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancel</button>
 </div>

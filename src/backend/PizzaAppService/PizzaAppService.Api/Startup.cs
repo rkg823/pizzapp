@@ -47,7 +47,6 @@ namespace PizzaAppService.Api
         });
         
       });
-
       services.AddControllers();
       services.AddHttpClient<IGithubService, GithubService>(c =>
       {
@@ -56,7 +55,8 @@ namespace PizzaAppService.Api
         c.DefaultRequestHeaders.Add("Accept", ACCEPT);
         c.DefaultRequestHeaders.Add("User-Agent", USER_AGENT);
       });
-      services.AddSingleton<IProductService, ProductService>();   
+      services.AddSingleton<IProductService, ProductService>();
+      services.AddSingleton<IProductMapperService, ProductMapperService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

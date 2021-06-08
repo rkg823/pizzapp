@@ -1,0 +1,33 @@
+<ol class="list-group list-group-numbered">
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="text-capitalize">{{selection.size.title}}</div>
+    </div>
+    <span class="text-capitalize">{{selection.size.price}}</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="text-capitalize">{{selection.cheese.title}}</div>
+    </div>
+    <span class="text-capitalize">{{selection.cheese.price}}</span>
+  </li>
+  <li *ngFor="let sauce of selection.sauces" class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="text-capitalize">{{sauce.title}}</div>
+    </div>
+    <span class="text-capitalize">{{sauce.price}}</span>
+  </li>
+  <li *ngFor="let topping of selection.toppings"
+    class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="text-capitalize">{{topping.title}}</div>
+    </div>
+    <span class="text-capitalize">{{topping.price}}</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between skip-order">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold text-capitalize">total</div>
+    </div>
+    <span class="text-capitalize">{{selection.total}}</span>
+  </li>
+</ol>

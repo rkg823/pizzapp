@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\PizzaAppService.Models\PizzaAppService.Models.csproj" />
+  </ItemGroup>
+
 </Project>

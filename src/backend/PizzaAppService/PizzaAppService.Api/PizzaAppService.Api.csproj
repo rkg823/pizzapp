@@ -5,8 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PizzaAppService.Common\PizzaAppService.Common.csproj" />
-    <ProjectReference Include="..\PizzaAppService.Product\PizzaAppService.Product.csproj" />
+    <ProjectReference Include="..\Common\PizzaAppService.Common\PizzaAppService.Common.csproj" />
+    <ProjectReference Include="..\Order\PizzaAppService.Order\PizzaAppService.Order.csproj" />
+    <ProjectReference Include="..\PizzaAppService.Models\PizzaAppService.Models.csproj" />
+    <ProjectReference Include="..\Product\PizzaAppService.Product\PizzaAppService.Product.csproj" />
   </ItemGroup>
 
   <ItemGroup>

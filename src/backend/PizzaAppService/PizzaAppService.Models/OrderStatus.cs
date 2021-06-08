@@ -4,8 +4,10 @@ using System.Text;
 
 namespace PizzaAppService.Models
 {
-  public class Price: Base
+  public enum OrderStatus
   {
-    public double Amount { get; set; }
+    Initiated = 1,
+    Confirmed = 2,
+    Completed = 3
   }
 }

@@ -5,6 +5,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavComponent } from './nav/nav.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductCustomizationComponent } from './product-customization/product-customization.component';
+import { SelectionComponent } from './product-customization/selection.component';
 
 
 
@@ -13,7 +14,9 @@ import { ProductCustomizationComponent } from './product-customization/product-c
     ProductCardComponent, 
     HeaderComponent, 
     FooterComponent, 
-    NavComponent, ProductCustomizationComponent
+    NavComponent, 
+    ProductCustomizationComponent, 
+    SelectionComponent
   ],
   imports: [
     CommonModule
