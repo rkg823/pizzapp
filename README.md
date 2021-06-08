@@ -3,8 +3,6 @@
 - dotnet publish
 - cd bin\debug\netcoreapp3.1\publish
 - dotnet PizzaAppService.Api.dll
-- 
-
 
 ## **Run Portal**## **Run Portal**
 - Goto frontend folder 
