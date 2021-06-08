@@ -10,7 +10,7 @@
     <h6>Select Size</h6>
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col" *ngFor="let size of productCustomization.sizes">
-        <div  (click)="selectOne(size, productCustomization.sizes, 'size')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-primary': size.selected }">
+        <div  (click)="selectOne(size, productCustomization.sizes, 'size')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-dark': size.selected }">
           <div class="card-body">
             <h5 class="card-title text-capitalize">{{size.price}}</h5>
             <p class="card-text text-capitalize">{{size.title}}</p>
@@ -22,7 +22,7 @@
     <h6>Select Sauces</h6>
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col" *ngFor="let sauce of productCustomization.sauces">
-        <div (click)="selectMany(sauce, 'sauces')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-primary': sauce.selected }">
+        <div (click)="selectMany(sauce, 'sauces')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-dark': sauce.selected }">
           <div class="card-body">
             <h5 class="card-title text-capitalize">{{sauce.price}}</h5>
             <p class="card-text text-capitalize">{{sauce.title}}</p>
@@ -34,7 +34,7 @@
     <h6>Select Toppings</h6>
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col" *ngFor="let topping of productCustomization.toppings">
-        <div (click)="selectMany(topping, 'toppings')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-primary': topping.selected }">
+        <div (click)="selectMany(topping, 'toppings')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-dark': topping.selected }">
           <div class="card-body">
             <h5 class="card-title text-capitalize">{{topping.price}}</h5>
             <p class="card-text text-capitalize">{{topping.title}}</p>
@@ -46,7 +46,7 @@
     <h6>Select Cheeses</h6>
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col" *ngFor="let cheese of productCustomization.cheeses">
-        <div (click)="selectOne(cheese,productCustomization.cheeses, 'cheese')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-primary': cheese.selected }">
+        <div (click)="selectOne(cheese,productCustomization.cheeses, 'cheese')" class="card text-center list-group-item-action" [ngClass]="{'text-white bg-dark': cheese.selected }">
           <div class="card-body">
             <h5 class="card-title text-capitalize">{{cheese.price}}</h5>
             <p class="card-text text-capitalize">{{cheese.title}}</p>
