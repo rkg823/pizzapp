@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using PizzaAppService.Models;
 using PizzaAppService.Product;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
@@ -29,32 +28,25 @@ namespace PizzaAppService.Order
       this.fileSystem = fileSystem;
     }
 
-    public async Task<Models.Order> CreateOrder(Models.Order order)
+    public async Task<Models.Order> CreateOrderAsync(Models.Order order)
     {
-      try
+      foreach (var item in order.Items)
       {
-        foreach (var item in order.Items)
-        {
-          item.Price = await productService.GetPriceById(item.Id, order.ProductId);
-        }
-        order.Amount = order.Items.Sum(item => item.Price);
-        order.Id = Guid.NewGuid().ToString();
-        order.Status = OrderStatus.Initiated;
-        var path = Path.Combine(configuration[CONTENT_ROOT_KEY], ORDER_DIRECTORY, $"{order.Id}.json");
-        fileSystem.File.WriteAllText(path, JsonConvert.SerializeObject(order));
+        item.Price = await productService.GetPriceById(item.Id, order.ProductId);
+      }
+      order.Amount = order.Items.Sum(item => item.Price);
+      order.Id = Guid.NewGuid().ToString();
+      order.Status = OrderStatus.Initiated;
+      var path = Path.Combine(configuration[CONTENT_ROOT_KEY], ORDER_DIRECTORY, $"{order.Id}.json");
+      fileSystem.File.WriteAllText(path, JsonConvert.SerializeObject(order));
 
-        return order;
-      }
-      catch(Exception ex)
-      {
-        return order;
-      }
+      return order;
     }
 
-    public async Task<Models.Order> ConfirmOrder(string id)
+    public async Task<Models.Order> ConfirmOrderAsync(string id)
     {
       var path = Path.Combine(configuration[CONTENT_ROOT_KEY], ORDER_DIRECTORY, $"{id}.json");
-      var fileText = fileSystem.File.ReadAllText(path);
+      var fileText = await fileSystem.File.ReadAllTextAsync(path);
       var order = JsonConvert.DeserializeObject<Models.Order>(fileText);
       order.Status = OrderStatus.Confirmed;
       fileSystem.File.WriteAllText(path, JsonConvert.SerializeObject(order));

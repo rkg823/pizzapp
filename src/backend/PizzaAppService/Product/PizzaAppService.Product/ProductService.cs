@@ -3,11 +3,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PizzaAppService.Common;
 using PizzaAppService.Product.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.IO;
-using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,6 +31,7 @@ namespace PizzaAppService.Product
       this.logger = logger;
       this.productMapper = productMapper;
     }
+
     public async Task<IList<Models.Product>> Get()
     {
       var results = await Task.WhenAll(new[]
@@ -98,21 +96,14 @@ namespace PizzaAppService.Product
       return priceList[id];
     }
 
-    public async Task<IList<Models.Product>> GetToppings()
+    private async Task<IList<Models.Product>> GetToppings()
     {
       var toppings = await GetFileData(TOPPINGS_FILE_URL);
       return toppings
         .Select(topping => this.productMapper.ToChildProduct(topping) as Models.Product)
         .ToList();
     }
-
-    public async Task<Models.Product> GetToppingById(string id)
-    {
-      var toppings = await GetToppings();
-      return toppings.FirstOrDefault(topping => topping.Id == id);
-    }
-
-    public async Task<IList<Models.Product>> GetSauces()
+    private async Task<IList<Models.Product>> GetSauces()
     {
       var data = await GetFileData(SAUCES_FILE_URL);
       return data
@@ -120,13 +111,7 @@ namespace PizzaAppService.Product
           .ToList();
     }
 
-    public async Task<Models.Product> GetSauceById(string id)
-    {
-      var sauces = await GetSauces();
-      return sauces.FirstOrDefault(sauce => sauce.Id == id);
-    }
-
-    public async Task<IList<Models.Size>> GetSizes()
+    private async Task<IList<Models.Size>> GetSizes()
     {
       var sizes = await GetFileData(SIZES_FILE_URL);
       return sizes
@@ -134,23 +119,12 @@ namespace PizzaAppService.Product
            .ToList();
     }
 
-    public async Task<Models.Size> GetSizeById(string id)
-    {
-      var sizes = await GetSizes();
-      return sizes.FirstOrDefault(size => size.Id == id);
-    }
-
-    public async Task<IList<Models.Product>> GetCheeses()
+    private async Task<IList<Models.Product>> GetCheeses()
     {
       var cheeses = await GetFileData(CHEESES_FILE_URL);
       return cheeses
           .Select(cheese => this.productMapper.ToChildProduct(cheese) as Models.Product)
           .ToList();
-    }
-    public async Task<Models.Product> GetCheeseById(string id)
-    {
-      var cheeses = await GetCheeses();
-      return cheeses.FirstOrDefault(cheese => cheese.Id == id);
     }
 
     private async Task<IList<dynamic>> GetFileData(string url)

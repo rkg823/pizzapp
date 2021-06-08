@@ -4,7 +4,7 @@ namespace PizzaAppService.Order
 {
   public interface IOrderService
   {
-    Task<Models.Order> CreateOrder(Models.Order order);
-    Task<Models.Order> ConfirmOrder(string id);
+    Task<Models.Order> CreateOrderAsync(Models.Order order);
+    Task<Models.Order> ConfirmOrderAsync(string id);
   }
 }

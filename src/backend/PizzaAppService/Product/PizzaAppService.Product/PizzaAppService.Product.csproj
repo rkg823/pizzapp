@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\PizzaAppService.Common\PizzaAppService.Common.csproj" />
-    <ProjectReference Include="..\..\PizzaAppService.Models\PizzaAppService.Models.csproj" />
+    <ProjectReference Include="..\..\Common\PizzaAppService.Models\PizzaAppService.Models.csproj" />
   </ItemGroup>
 
 </Project>

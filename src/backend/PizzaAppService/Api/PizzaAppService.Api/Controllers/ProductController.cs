@@ -10,13 +10,10 @@ namespace PizzaAppService.Api.Controllers
   [Route("api/product")]
   public class ProductController : ControllerBase
   {
-    private readonly ILogger<ProductController> logger;
-
     private readonly IProductService productService;
 
-    public ProductController(ILogger<ProductController> logger, IProductService productService)
+    public ProductController(IProductService productService)
     {
-      this.logger = logger;
       this.productService = productService;
     }
 
