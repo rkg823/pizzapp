@@ -6,6 +6,6 @@
 
 ## **Run Portal**
 - Goto frontend folder 
-- Update the based url for hosted api
+- Update the base url for hosted api
 - ng serve
 
