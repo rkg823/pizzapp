@@ -32,17 +32,17 @@ namespace PizzaAppService.Product
       this.productMapper = productMapper;
     }
 
-    public async Task<IList<Models.Product>> Get()
+    public async Task<IList<Models.Product>> GetAsync()
     {
       var results = await Task.WhenAll(new[]
       {
-        GetSauces(),
-        GetToppings(),
-        GetCheeses()
+        GetSaucesAsync(),
+        GetToppingsAsync(),
+        GetCheesesAsync()
       });
 
-      var products = await GetFileData(PRODUCTS_FILE_URL);
-      var sizes = (await GetSizes()).ToDictionary();
+      var products = await GetFileDataAsync(PRODUCTS_FILE_URL);
+      var sizes = (await GetSizesAsync()).ToDictionary();
       var sauces = results[0].ToDictionary();
       var toppings = results[1].ToDictionary();
       var cheeses = results[2].ToDictionary();
@@ -65,15 +65,15 @@ namespace PizzaAppService.Product
       }).ToList();
     }
 
-    public async Task<Models.Product> Get(string id)
+    public async Task<Models.Product> GetAsnc(string id)
     {
-      var products = await Get();
+      var products = await GetAsync();
       return products.FirstOrDefault(product => product.Id == id);
     }
 
     public async Task<double> GetPriceById(string id, string productId)
     {
-      var product = await Get(productId);
+      var product = await GetAsnc(productId);
 
       var priceList = new Dictionary<string, double>();
       foreach (var size in product.Sizes)
@@ -96,38 +96,39 @@ namespace PizzaAppService.Product
       return priceList[id];
     }
 
-    private async Task<IList<Models.Product>> GetToppings()
+    private async Task<IList<Models.Product>> GetToppingsAsync()
     {
-      var toppings = await GetFileData(TOPPINGS_FILE_URL);
+      var toppings = await GetFileDataAsync(TOPPINGS_FILE_URL);
       return toppings
         .Select(topping => this.productMapper.ToChildProduct(topping) as Models.Product)
         .ToList();
     }
-    private async Task<IList<Models.Product>> GetSauces()
+
+    private async Task<IList<Models.Product>> GetSaucesAsync()
     {
-      var data = await GetFileData(SAUCES_FILE_URL);
+      var data = await GetFileDataAsync(SAUCES_FILE_URL);
       return data
           .Select(sauce => this.productMapper.ToChildProduct(sauce) as Models.Product)
           .ToList();
     }
 
-    private async Task<IList<Models.Size>> GetSizes()
+    private async Task<IList<Models.Size>> GetSizesAsync()
     {
-      var sizes = await GetFileData(SIZES_FILE_URL);
+      var sizes = await GetFileDataAsync(SIZES_FILE_URL);
       return sizes
            .Select(size => this.productMapper.ToSize(size) as Models.Size)
            .ToList();
     }
 
-    private async Task<IList<Models.Product>> GetCheeses()
+    private async Task<IList<Models.Product>> GetCheesesAsync()
     {
-      var cheeses = await GetFileData(CHEESES_FILE_URL);
+      var cheeses = await GetFileDataAsync(CHEESES_FILE_URL);
       return cheeses
           .Select(cheese => this.productMapper.ToChildProduct(cheese) as Models.Product)
           .ToList();
     }
 
-    private async Task<IList<dynamic>> GetFileData(string url)
+    private async Task<IList<dynamic>> GetFileDataAsync(string url)
     {
       var file = await gitHubService.GetFile(url);
       dynamic json = JsonConvert.DeserializeObject<ExpandoObject>(file, new ExpandoObjectConverter());

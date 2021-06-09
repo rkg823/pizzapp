@@ -20,7 +20,7 @@ namespace PizzaAppService.Api.Controllers
     [HttpGet]
     public async Task<IList<Models.Product>> Get()
     {
-      return await productService.Get();
+      return await productService.GetAsync();
     }
   }
 }

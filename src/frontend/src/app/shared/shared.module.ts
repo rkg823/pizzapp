@@ -6,6 +6,7 @@ import { NavComponent } from './nav/nav.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductCustomizationComponent } from './product-customization/product-customization.component';
 import { SelectionComponent } from './product-customization/selection.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -19,7 +20,8 @@ import { SelectionComponent } from './product-customization/selection.component'
     SelectionComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     ProductCardComponent, 

@@ -51,7 +51,7 @@ namespace PizzaAppService.Api.Test
           },
         }
       };
-      mockProductService.Setup(ps => ps.Get()).ReturnsAsync(testProducts);
+      mockProductService.Setup(ps => ps.GetAsync()).ReturnsAsync(testProducts);
 
       var controller = new ProductController(mockProductService.Object);
       var products = await controller.Get();
@@ -66,7 +66,7 @@ namespace PizzaAppService.Api.Test
     [TestMethod]
     public async Task GetShouldThrowError()
     {
-      mockProductService.Setup(ps => ps.Get()).Throws(new TimeoutException());
+      mockProductService.Setup(ps => ps.GetAsync()).Throws(new TimeoutException());
 
       var controller = new ProductController(mockProductService.Object);
       await Assert.ThrowsExceptionAsync<TimeoutException>(async () => await controller.Get());

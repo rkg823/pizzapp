@@ -6,8 +6,8 @@ namespace PizzaAppService.Product
 {
   public interface IProductService
   {
-    Task<IList<Models.Product>> Get();
-    Task<Models.Product> Get(string id);
+    Task<IList<Models.Product>> GetAsync();
+    Task<Models.Product> GetAsnc(string id);
     Task<double> GetPriceById(string id, string productId);
   }
 }
