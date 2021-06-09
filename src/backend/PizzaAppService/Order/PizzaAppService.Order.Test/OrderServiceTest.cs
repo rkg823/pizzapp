@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
+using PizzaAppService.Models;
 using PizzaAppService.Product;
 using System;
 using System.Collections.Generic;
@@ -35,9 +36,13 @@ namespace PizzaAppService.Order.Test
       var orderService = new OrderService(mockConfiguration.Object, mockProductService.Object, mockFileSystem.Object);
       var order = await orderService.CreateOrderAsync(mockOrder(200, 200));
 
-      mockProductService.Verify(ps => ps.GetPriceById("test-item-id", "test-order-id"), Times.Once());
-      var expectedFile = JsonConvert.SerializeObject(mockOrder(100, 100));
-      mockFileSystem.Verify(fs => fs.File.WriteAllText($"root\\AppData\\Orders\\{order.Id}.json", expectedFile), Times.Once());
+      mockProductService.Verify(ps => ps.GetPriceById("test-item-id", "test-product-id"), Times.Once());
+      var expectedOrderToWrite = mockOrder(100.0, 100.0);
+      expectedOrderToWrite.Id = order.Id;
+      expectedOrderToWrite.Status = OrderStatus.Initiated;
+
+      mockFileSystem.Verify(fs => fs.File.WriteAllText($"root\\AppData\\Orders\\{order.Id}.json", 
+        JsonConvert.SerializeObject(expectedOrderToWrite)), Times.Once());
     }
 
     [TestMethod]
@@ -57,7 +62,7 @@ namespace PizzaAppService.Order.Test
     {
       return new Models.Order
       {
-        Id = "test-order-id",
+        ProductId = "test-product-id",
         Amount = amount,
         Items = new List<Models.OrderItem>
         {

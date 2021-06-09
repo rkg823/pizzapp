@@ -63,7 +63,8 @@ namespace PizzaAppService.Common.Test
 
       var githubService = new GithubService(httpClient);
       await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () => await githubService.GetFile("testfile.json"));
-      mockHttpHandler.Protected().Verify<Task<HttpResponseMessage>>("SendAsync", Times.Once(), ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>());
+
+      mockHttpHandler.Protected().Verify<Task<HttpResponseMessage>>("SendAsync", Times.Never(), ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>());
     }
   }
 }
